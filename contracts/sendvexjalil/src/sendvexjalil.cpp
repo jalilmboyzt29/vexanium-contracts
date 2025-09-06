@@ -1,4 +1,4 @@
-#include "sendvexjalil.hpp"
+#include <sendvexjalil/sendvexjalil.hpp>
 
 // Action addtoken - membuat token dengan informasi lengkap
 void sendvexjalil::addtoken( const name& issuer, const string& token_name, const string& symbol_str, 
@@ -30,7 +30,7 @@ void sendvexjalil::addtoken( const name& issuer, const string& token_name, const
 
 // Action updateinfo - update nama token dan logo URL
 void sendvexjalil::updateinfo( const string& symbol_str, const string& token_name, const string& logo_url ) {
-    symbol sym = symbol(symbol_str, 4); // Asumsikan precision 4, bisa diubah sesuai kebutuhan
+    symbol sym = symbol(symbol_str, 4); // Asumsikan precision 4
     
     stats statstable( get_self(), sym.code().raw() );
     auto existing = statstable.find( sym.code().raw() );
@@ -49,7 +49,7 @@ void sendvexjalil::updateinfo( const string& symbol_str, const string& token_nam
     });
 }
 
-// Action create - standar seperti vex.token (tanpa info detail)
+// Action create - standar seperti eosio.token
 void sendvexjalil::create( const name& issuer, const asset& maximum_supply ) {
     require_auth( get_self() );
 
@@ -95,8 +95,6 @@ void sendvexjalil::issue( const name& to, const asset& quantity, const string& m
 
     add_balance( to, quantity, st.issuer );
 }
-
-// ... (sisa actions sama seperti sebelumnya: retire, transfer, open, close, sub_balance, add_balance)
 
 void sendvexjalil::retire( const asset& quantity, const string& memo ) {
     auto sym = quantity.symbol;

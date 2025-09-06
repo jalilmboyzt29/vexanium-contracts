@@ -1,9 +1,11 @@
 #pragma once
 
-#include <vexanium/vexanium.hpp>
+#include <eosio/eosio.hpp>
+#include <eosio/asset.hpp>
+#include <eosio/symbol.hpp>
 #include <string>
 
-using namespace vexanium;
+using namespace eosio;
 using std::string;
 
 CONTRACT sendvexjalil : public contract {
@@ -11,7 +13,7 @@ CONTRACT sendvexjalil : public contract {
       using contract::contract;
 
       // Struktur untuk menyimpan statistik dan detail token
-      struct [[vexanium::table]] currency_stats {
+      struct [[eosio::table]] currency_stats {
          asset    supply;
          asset    max_supply;
          name     issuer;
@@ -22,7 +24,7 @@ CONTRACT sendvexjalil : public contract {
       };
 
       // Struktur untuk menyimpan balance akun
-      struct [[vexanium::table]] account {
+      struct [[eosio::table]] account {
          asset    balance;
 
          uint64_t primary_key()const { return balance.symbol.code().raw(); }
@@ -32,29 +34,29 @@ CONTRACT sendvexjalil : public contract {
       typedef multi_index< "accounts"_n, account > accounts;
 
       // Actions
-      [[vexanium::action]]
+      [[eosio::action]]
       void addtoken( const name& issuer, const string& token_name, const string& symbol_str, 
                      uint8_t precision, uint64_t max_supply, const string& logo_url );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void create( const name& issuer, const asset& maximum_supply );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void updateinfo( const string& symbol_str, const string& token_name, const string& logo_url );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void issue( const name& to, const asset& quantity, const string& memo );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void retire( const asset& quantity, const string& memo );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void transfer( const name& from, const name& to, const asset& quantity, const string& memo );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void open( const name& owner, const symbol& symbol, const name& ram_payer );
 
-      [[vexanium::action]]
+      [[eosio::action]]
       void close( const name& owner, const symbol& symbol );
 
    private:
