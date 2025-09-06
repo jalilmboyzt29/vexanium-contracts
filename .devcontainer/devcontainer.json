@@ -1,0 +1,25 @@
+{
+  "name": "Vexanium Development",
+  "image": "ubuntu:20.04",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "postCreateCommand": ".devcontainer/setup-vex.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools",
+        "GitHub.copilot"
+      ]
+    }
+  },
+  "forwardPorts": [8888, 9876],
+  "remoteUser": "vscode"
+}
